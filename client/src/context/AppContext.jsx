@@ -13,7 +13,16 @@ const AppContextProvider = (props)=>{
     const navigate = useNavigate();
     const [credit, setCredit] = useState(false);
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = (import.meta.env.VITE_BACKEND_URL ?? '')
+        .trim()
+        .replace(/^['"]|['"]$/g, '')
+        .replace(/\/+$/, '')
+
+    useEffect(() => {
+        if (import.meta.env.PROD && !backendUrl) {
+            toast.error('Backend URL is not set. Configure VITE_BACKEND_URL in Netlify and redeploy.')
+        }
+    }, [backendUrl])
 
     const loadCreditsData = async()=>{
         try {
