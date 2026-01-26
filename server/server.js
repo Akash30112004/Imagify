@@ -12,6 +12,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Defensive: normalize accidental double-slashes in paths (e.g. //api/user/login)
+app.use((req, _res, next) => {
+	if (req.url && req.url.includes('//')) {
+		req.url = req.url.replace(/\/\/{2,}/g, '/')
+	}
+	next()
+})
+
 await connectDB();
 
 
