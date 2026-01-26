@@ -83,7 +83,7 @@ const AppContextProvider = (props)=>{
     }, [token])
 
     const value ={
-        user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, loadCreditsData, logout, generateImage
+        user, setUser, showLogin, setShowLogin, backendUrl, apiUrl, token, setToken, credit, setCredit, loadCreditsData, logout, generateImage
     }
     return(
         <AppContext.Provider value={value}>
