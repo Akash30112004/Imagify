@@ -18,6 +18,15 @@ const AppContextProvider = (props)=>{
         .replace(/^['"]|['"]$/g, '')
         .replace(/\/+$/, '')
 
+    const apiUrl = (path) => {
+        if (!backendUrl) return path
+        try {
+            return new URL(path, backendUrl).toString()
+        } catch {
+            return backendUrl + path
+        }
+    }
+
     useEffect(() => {
         if (import.meta.env.PROD && !backendUrl) {
             toast.error('Backend URL is not set. Configure VITE_BACKEND_URL in Netlify and redeploy.')
@@ -26,7 +35,7 @@ const AppContextProvider = (props)=>{
 
     const loadCreditsData = async()=>{
         try {
-            const {data} = await axios.get(backendUrl + '/api/user/credits', {headers: {token}})
+            const {data} = await axios.get(apiUrl('/api/user/credits'), {headers: {token}})
 
             if(data.success){
                 setCredit(data.credits)
@@ -42,7 +51,7 @@ const AppContextProvider = (props)=>{
 
     const generateImage = async(prompt)=>{
         try {
-            const {data} = await axios.post(backendUrl + '/api/image/generate-image', {prompt}, {headers: {token}})
+            const {data} = await axios.post(apiUrl('/api/image/generate-image'), {prompt}, {headers: {token}})
 
             if(data.success){
                 loadCreditsData()
