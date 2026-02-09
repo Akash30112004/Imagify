@@ -20,11 +20,18 @@ app.use((req, _res, next) => {
 	next()
 })
 
-await connectDB();
-
-
 app.use('/api/user', userRouter)
 app.use('/api/image', imageRouter)
 app.get('/', (req, res) => res.send('API is Working'))
 
-app.listen(PORT, ()=> console.log(`Server is running on port ${PORT}`)) 
+const start = async () => {
+	try {
+		await connectDB();
+	} catch (error) {
+		console.error('Database connection failed:', error?.message || error);
+	}
+
+	app.listen(PORT, '0.0.0.0', () => console.log(`Server is running on port ${PORT}`))
+}
+
+start()
