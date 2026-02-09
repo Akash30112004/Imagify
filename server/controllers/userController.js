@@ -77,13 +77,25 @@ const userCredits = async(req, res)=>{
     }
 }
 
-const razorpayInstance = new razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-})
+const razorpayKeyId = process.env.RAZORPAY_KEY_ID
+const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET
+
+const razorpayInstance = (razorpayKeyId && razorpayKeySecret)
+    ? new razorpay({
+        key_id: razorpayKeyId,
+        key_secret: razorpayKeySecret,
+    })
+    : null
 
 const paymentRazorpay = async(req, res)=>{
     try {
+        if (!razorpayInstance) {
+            return res.json({
+                success: false,
+                message: 'Payments are not configured on the server.'
+            })
+        }
+
         const {userId, planId} = req.body;
         const userData = await userModel.findById(userId)
 
@@ -146,6 +158,13 @@ const paymentRazorpay = async(req, res)=>{
 
 const verifyRazorpay = async(req, res)=>{
     try {
+        if (!razorpayInstance) {
+            return res.json({
+                success: false,
+                message: 'Payments are not configured on the server.'
+            })
+        }
+
         const {razorpay_order_id} = req.body;
 
         const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
