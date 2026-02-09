@@ -13,7 +13,14 @@ export const generateImage =  async(req, res) =>{
             return res.json({success: false, message: 'Missing Details'})
         }
 
-        if(user.creditBalance === 0 || userModel.creditBalance < 0){
+        if (!process.env.CLIPDROP_API_KEY) {
+            return res.json({
+                success: false,
+                message: 'Server is missing CLIPDROP_API_KEY configuration.'
+            })
+        }
+
+        if(user.creditBalance === 0 || user.creditBalance < 0){
             return res.json({success: false, message: 'Insufficient Credits.', creditBalance: user.creditBalance})
         }
 
@@ -36,8 +43,36 @@ export const generateImage =  async(req, res) =>{
 
     } 
     catch (error) {
-        console.log(error.message);
-        res.json({success: false, message: error.message})
-        
+        const status = error?.response?.status
+        const raw = error?.response?.data
+
+        let details = ''
+        try {
+            if (raw) {
+                if (Buffer.isBuffer(raw)) {
+                    details = raw.toString('utf8')
+                } else if (raw instanceof ArrayBuffer) {
+                    details = Buffer.from(raw).toString('utf8')
+                } else if (typeof raw === 'string') {
+                    details = raw
+                } else {
+                    details = JSON.stringify(raw)
+                }
+            }
+        } catch {
+            // ignore decoding errors
+        }
+
+        console.error('Image generation failed', {
+            status,
+            message: error?.message,
+            details,
+        })
+
+        const message = status
+            ? `Image API error (${status})${details ? `: ${details}` : ''}`
+            : (error?.message || 'Image generation failed')
+
+        res.json({success: false, message})
     }
 }
