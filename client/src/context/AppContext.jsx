@@ -29,7 +29,7 @@ const AppContextProvider = (props)=>{
 
     useEffect(() => {
         if (import.meta.env.PROD && !backendUrl) {
-            toast.error('Backend URL is not set. Configure VITE_BACKEND_URL in Netlify and redeploy.')
+            toast.error('Backend URL is not set. Configure VITE_BACKEND_URL in your hosting env (e.g., Vercel) and redeploy.')
         }
     }, [backendUrl])
 
