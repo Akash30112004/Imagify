@@ -1,37 +1,18 @@
-import express from 'express';
-import cors from 'cors';
 import 'dotenv/config';
 
+import app from './app.js';
 import connectDB from './config/mongodb.js';
-import userRouter from './routes/userRoutes.js';
-import imageRouter from './routes/imageRoutes.js';
 
 const PORT = process.env.PORT || 4000
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-
-// Defensive: normalize accidental double-slashes in paths (e.g. //api/user/login)
-app.use((req, _res, next) => {
-	if (req.url && req.url.includes('//')) {
-		req.url = req.url.replace(/\/\/{2,}/g, '/')
-	}
-	next()
-})
-
-app.use('/api/user', userRouter)
-app.use('/api/image', imageRouter)
-app.get('/', (req, res) => res.send('API is Working'))
 
 const start = async () => {
-	app.listen(PORT, '0.0.0.0', () => console.log(`Server is running on port ${PORT}`))
-
-	// Connect to DB in the background so platform healthchecks can succeed
-	// even if the DB is temporarily unreachable.
-	connectDB().catch((error) => {
-		console.error('Database connection failed:', error?.message || error);
-	})
+	try {
+		await connectDB();
+		app.listen(PORT, '0.0.0.0', () => console.log(`Server is running on port ${PORT}`))
+	} catch (error) {
+		console.error('Database connection failed:', error?.message || error)
+		process.exit(1)
+	}
 }
 
 start()

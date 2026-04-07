@@ -15,3 +15,9 @@ services:
         sync: false
       - key: CLIPDROP_API_KEY
         sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: CURRENCY
+        sync: false

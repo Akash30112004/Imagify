@@ -12,7 +12,7 @@ AI image generation web app built with a React (Vite) frontend and a Node/Expres
 > Add screenshots/GIFs here once deployed.
 
 - Live App: _(add Netlify URL)_
-- API: https://imagify-api-g2gc.onrender.com
+- API: deploy the backend separately on Render
 
 ## Architecture (high level)
 
@@ -37,12 +37,15 @@ netlify.toml     # Netlify build + SPA routing config
 
 ### Backend (`server` on Render)
 
-Set these in **Render → Service → Environment**:
+Create a Render Web Service for the `server/` folder and set these in **Render → Environment**:
 
 - `MONGODB_URI` – MongoDB Atlas URI **without** a db name (the app appends `/imagify`)
   - Example: `mongodb+srv://USER:PASS@cluster.xxxxx.mongodb.net`
 - `JWT_SECRET` – any long random secret
 - `CLIPDROP_API_KEY` – your Clipdrop API key
+- `RAZORPAY_KEY_ID` – Razorpay key id
+- `RAZORPAY_KEY_SECRET` – Razorpay key secret
+- `CURRENCY` – usually `INR`
 
 ### Frontend (`client` on Netlify)
 
@@ -112,23 +115,18 @@ Requests use a custom header named `token`:
 
 ## Deployment
 
-### Backend: Render (Web Service)
+### Backend: Render
 
-**Option A — Render UI (no YAML required)**
+- Create a new Render **Web Service** from this repo.
+- Set the root directory to `server`.
+- Build command: `npm install`
+- Start command: `npm start`
+- Add the backend env vars listed above.
+- Deploy.
 
-- New → **Web Service**
-- Root Directory: `server`
-- Build: `npm install`
-- Start: `npm start`
-- Add env vars: `MONGODB_URI`, `JWT_SECRET`, `CLIPDROP_API_KEY`
+Your API base URL will look like `https://your-project.onrender.com`.
 
-**Option B — Render Blueprint**
-
-This repo includes [render.yaml](render.yaml). In Render:
-
-- New → **Blueprint** → select repo → deploy
-
-### Frontend: Netlify
+### Frontend: Netlify or Vercel
 
 This repo includes [netlify.toml](netlify.toml) and SPA fallback routing.
 
@@ -136,7 +134,7 @@ This repo includes [netlify.toml](netlify.toml) and SPA fallback routing.
 - Base directory: `client`
 - Build command: `npm run build`
 - Publish directory: `dist`
-- Env var: `VITE_BACKEND_URL=https://imagify-api-g2gc.onrender.com`
+- Env var: `VITE_BACKEND_URL=https://your-project.onrender.com`
 
 ## Troubleshooting
 
