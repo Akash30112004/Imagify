@@ -12,42 +12,33 @@ Explore the key features and user experience of **Imagify**, an AI-powered text-
 
 ## 🏠 Home Page
 
-A modern landing page introducing Imagify with an elegant interface, AI-powered image generation, and responsive design.
+A modern landing page showcasing Imagify's AI capabilities with a clean interface, responsive design, and quick access to image generation.
 
-![Home Page](assets/home-page.png)
+![Home Page](assets/homePage.png)
 
 ---
 
 ## 🔐 Secure Authentication
 
-Secure Login and Signup using JWT Authentication with protected routes and user session management.
+Secure user authentication with Login and Signup functionality, powered by JWT authentication for protected access.
 
-![Login Page](assets/login-page.png)
+![Login Page](assets/loginPage.png)
 
 ---
 
 ## 🎨 AI Image Generation
 
-Generate stunning AI-powered images by simply entering a text prompt. Images are created using the Clipdrop Text-to-Image API.
+Generate high-quality AI images from simple text prompts using the **Clipdrop Text-to-Image API**. Users can enter prompts, manage credits, and instantly create unique images.
 
-![Image Generation](assets/image-generation.png)
-
----
-
-## 🖼 Generated Image
-
-Preview and download high-quality AI-generated images directly from the application.
-
-![Generated Image](assets/generated-image.png)
+![Image Generation](assets/imageGeneration.png)
 
 ---
 
-## 💳 Credit Purchase
+## 🖼 Generated Results
 
-Purchase additional image generation credits securely through Razorpay payment integration.
+Preview, download, or generate another AI-created image after successful generation. Credits are updated automatically after each request.
 
-![Buy Credits](assets/buy-credits.png)
-
+![Generated Result](assets/generatedResult.png)
 ---
 
 # ✨ Features
@@ -177,7 +168,7 @@ git clone https://github.com/Akash30112004/Imagify.git
 ```bash
 cd server
 npm install
-npm start
+npm run start
 ```
 
 ---
@@ -307,7 +298,7 @@ This project is licensed under the **MIT License**.
 **Akash Singh**
 
 - GitHub: https://github.com/Akash30112004
-- LinkedIn: *(Add your LinkedIn Profile)*
+- LinkedIn: https://www.linkedin.com/in/akash456/
 
 ---
 
