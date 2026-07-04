@@ -1,167 +1,314 @@
-# Imagify
+# 🎨 Imagify
 
-AI image generation web app built with a React (Vite) frontend and a Node/Express + MongoDB backend.
+> An AI-powered image generation platform built with the MERN stack, allowing users to transform text prompts into high-quality images using the Clipdrop AI API. The application features secure authentication, a credit-based generation system, and Razorpay payment integration.
 
-- **Frontend**: React 19 + Vite + Tailwind CSS
-- **Backend**: Node.js + Express
-- **Database**: MongoDB (Atlas)
-- **Image API**: Clipdrop (Text-to-Image)
+---
 
-## Preview
+# 📸 Project Screenshots
 
-> Add screenshots/GIFs here once deployed.
+Explore the key features and user experience of **Imagify**, an AI-powered text-to-image generation platform.
 
-- Live App: _(add Netlify URL)_
-- API: deploy the backend separately on Render
+---
 
-## Architecture (high level)
+## 🏠 Home Page
 
-```mermaid
-flowchart LR
-  U[User / Browser] -->|HTTPS| FE[Frontend (Netlify)]
-  FE -->|HTTPS /api/*| API[Backend API (Render)]
-  API -->|Mongoose| DB[(MongoDB Atlas)]
-  API -->|Clipdrop API Key| CD[Clipdrop Text-to-Image]
+A modern landing page introducing Imagify with an elegant interface, AI-powered image generation, and responsive design.
+
+![Home Page](assets/home-page.png)
+
+---
+
+## 🔐 Secure Authentication
+
+Secure Login and Signup using JWT Authentication with protected routes and user session management.
+
+![Login Page](assets/login-page.png)
+
+---
+
+## 🎨 AI Image Generation
+
+Generate stunning AI-powered images by simply entering a text prompt. Images are created using the Clipdrop Text-to-Image API.
+
+![Image Generation](assets/image-generation.png)
+
+---
+
+## 🖼 Generated Image
+
+Preview and download high-quality AI-generated images directly from the application.
+
+![Generated Image](assets/generated-image.png)
+
+---
+
+## 💳 Credit Purchase
+
+Purchase additional image generation credits securely through Razorpay payment integration.
+
+![Buy Credits](assets/buy-credits.png)
+
+---
+
+# ✨ Features
+
+## 🎨 AI Image Generation
+
+- Generate images from text prompts
+- High-quality AI-generated images
+- Download generated images
+- Fast AI response using Clipdrop API
+
+---
+
+## 🔐 Authentication
+
+- Secure Login & Signup
+- JWT Authentication
+- Protected Routes
+- User Profile Management
+
+---
+
+## 💳 Credit System
+
+- Credit-based image generation
+- Razorpay payment integration
+- Credit balance management
+- Secure online payments
+
+---
+
+## 🎨 User Experience
+
+- Modern responsive interface
+- Smooth page transitions
+- Clean and intuitive design
+- Mobile-friendly layout
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React
+- Vite
+- Tailwind CSS
+- React Router
+
+## Backend
+
+- Node.js
+- Express.js
+- JWT Authentication
+
+## Database
+
+- MongoDB Atlas
+- Mongoose
+
+## APIs & Services
+
+- Clipdrop Text-to-Image API
+- Razorpay Payment Gateway
+
+---
+
+# 🏗 Architecture
+
+```text
+                    User
+                      │
+                      ▼
+            React + Vite Frontend
+                      │
+             REST API (Express.js)
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+          ▼                       ▼
+   MongoDB Atlas          Clipdrop AI API
+          │
+          ▼
+ Razorpay Payment Gateway
 ```
 
-## Repository Structure
+---
 
+# 📂 Folder Structure
+
+```text
+Imagify
+│
+├── client
+│   ├── src
+│   ├── components
+│   ├── pages
+│   ├── context
+│   ├── assets
+│   └── utils
+│
+├── server
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── config
+│   └── utils
+│
+└── README.md
 ```
-client/   # Vite + React frontend
-server/   # Express API
-render.yaml      # Render Blueprint (optional)
-netlify.toml     # Netlify build + SPA routing config
-```
 
-## Environment Variables
+---
 
-### Backend (`server` on Render)
+# ⚙️ Installation
 
-Create a Render Web Service for the `server/` folder and set these in **Render → Environment**:
-
-- `MONGODB_URI` – MongoDB Atlas URI **without** a db name (the app appends `/imagify`)
-  - Example: `mongodb+srv://USER:PASS@cluster.xxxxx.mongodb.net`
-- `JWT_SECRET` – any long random secret
-- `CLIPDROP_API_KEY` – your Clipdrop API key
-- `RAZORPAY_KEY_ID` – Razorpay key id
-- `RAZORPAY_KEY_SECRET` – Razorpay key secret
-- `CURRENCY` – usually `INR`
-
-### Frontend (`client` on Netlify)
-
-Set this in **Netlify → Site configuration → Environment variables**:
-
-- `VITE_BACKEND_URL` – Render API base URL
-  - Example: `https://imagify-api-g2gc.onrender.com`
-
-> Note: Vite env vars are baked at build-time. After changing env vars, redeploy on Netlify.
-
-## Local Development
-
-### 1) Backend
-
-From `server/`:
+## Clone Repository
 
 ```bash
+git clone https://github.com/Akash30112004/Imagify.git
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd server
 npm install
-npm run server
+npm start
 ```
 
-Backend runs on: `http://localhost:4000`
+---
 
-### 2) Frontend
-
-From `client/`:
+## Frontend Setup
 
 ```bash
+cd client
 npm install
 npm run dev
 ```
 
-Frontend runs on the Vite dev URL shown in the terminal.
+---
 
-### Local `.env` examples
+# 🔑 Environment Variables
 
-Frontend (`client/.env`):
+Create a `.env` file inside the **server** directory.
 
-```dotenv
-VITE_BACKEND_URL=http://localhost:4000
+```env
+MONGODB_URI=
+
+JWT_SECRET=
+
+CLIPDROP_API_KEY=
+
+RAZORPAY_KEY_ID=
+
+RAZORPAY_KEY_SECRET=
 ```
 
-Backend (`server/.env`) **(do not commit)**:
+Create a `.env` file inside the **client** directory.
 
-```dotenv
-MONGODB_URI=mongodb+srv://USER:PASS@cluster.xxxxx.mongodb.net
-JWT_SECRET=your_secret
-CLIPDROP_API_KEY=your_clipdrop_key
+```env
+VITE_BACKEND_URL=
 ```
 
-## API Endpoints
+---
 
-Base URL: `/api`
+# 📡 API Endpoints
 
-| Method | Route | Auth | Description |
-|---|---|---:|---|
-| POST | `/user/register` | No | Register user |
-| POST | `/user/login` | No | Login user |
-| GET | `/user/credits` | Yes (token header) | Get credits + user |
-| POST | `/image/generate-image` | Yes (token header) | Generate image from prompt |
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/user/register` | Register User |
+| POST | `/user/login` | Login User |
+| GET | `/user/credits` | Fetch User Credits |
+| POST | `/image/generate-image` | Generate AI Image |
 
-**Auth header**
+---
 
-Requests use a custom header named `token`:
+# 🤖 AI Workflow
 
-- `token: <jwt>`
+```text
+User Prompt
+      │
+      ▼
+React Frontend
+      │
+      ▼
+Express Backend
+      │
+      ▼
+Clipdrop AI API
+      │
+      ▼
+Generated Image
+      │
+      ▼
+Download Image
+```
 
-## Deployment
+---
 
-### Backend: Render
+# 🚀 Performance Highlights
 
-- Create a new Render **Web Service** from this repo.
-- Set the root directory to `server`.
-- Build command: `npm install`
-- Start command: `npm start`
-- Add the backend env vars listed above.
-- Deploy.
+- AI-powered text-to-image generation
+- Secure JWT Authentication
+- Credit-based usage system
+- Razorpay payment integration
+- Responsive UI across devices
+- Optimized API communication
+- Fast image generation workflow
 
-Your API base URL will look like `https://your-project.onrender.com`.
+---
 
-### Frontend: Netlify or Vercel
+# 🧠 Challenges Faced
 
-This repo includes [netlify.toml](netlify.toml) and SPA fallback routing.
+- Integrating the Clipdrop AI API.
+- Managing secure credit deduction.
+- Handling asynchronous image generation requests.
+- Implementing secure authentication using JWT.
+- Integrating Razorpay payment flow.
 
-- New site from Git
-- Base directory: `client`
-- Build command: `npm run build`
-- Publish directory: `dist`
-- Env var: `VITE_BACKEND_URL=https://your-project.onrender.com`
+---
 
-## Troubleshooting
+# 📚 What I Learned
 
-### Netlify shows “Page not found” on refresh
+- Working with AI-powered APIs.
+- Building scalable MERN applications.
+- Managing authentication using JWT.
+- Secure payment gateway integration.
+- MongoDB data modeling.
+- REST API development with Express.
 
-Ensure SPA redirect is enabled:
+---
 
-- [netlify.toml](netlify.toml) contains a `/* -> /index.html` rewrite.
-- `client/public/_redirects` exists.
+# 🗺 Roadmap
 
-### Frontend can’t reach backend (404 or wrong URL)
+- [ ] Image Generation History
+- [ ] AI Image Variations
+- [ ] Image Upscaling
+- [ ] Prompt Templates
+- [ ] Favorite Images
+- [ ] Download History
+- [ ] Dark Mode
+- [ ] AI Style Presets
 
-Check DevTools → Network:
+---
 
-- Request URL must be: `https://imagify-api-g2gc.onrender.com/api/...`
-- If you see `//api/...` or calls to the Netlify domain, fix `VITE_BACKEND_URL` and redeploy.
+# 📄 License
 
-### Render is slow on first request
+This project is licensed under the **MIT License**.
 
-Render free tier services can sleep; first request may take ~20–60s.
+---
 
-## Tech Stack
+# 👨‍💻 Author
 
-- React, Vite, Tailwind CSS
-- Node.js, Express, Mongoose
-- MongoDB Atlas
+**Akash Singh**
 
-## License
+- GitHub: https://github.com/Akash30112004
+- LinkedIn: *(Add your LinkedIn Profile)*
 
-Add a license if you plan to open-source this.
+---
+
+⭐ If you found this project helpful, consider giving it a star.
